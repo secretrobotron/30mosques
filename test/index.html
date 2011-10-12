@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="../css/style.css" />
+    <script type="text/javascript" src="../external/vimeo/javascript/froogaloop.js"></script>
+    <script type="text/javascript" src="../js/main.js"></script>
+    <script>
+      document.addEventListener( "DOMContentLoaded", function( e ) {
+        var timeline = new ThirtyMosques.Timeline({
+          target: "timeline-container",
+          title: "title-container",
+          description: "description-container",
+          audio: "audio-source"
+        });
+
+        timeline.addSegment( new ThirtyMosques.Segment({
+          video: "12622016"
+        }));
+        timeline.addSegment( new ThirtyMosques.Segment({
+          video: "30347612"
+        }));
+
+        timeline.play();
+      }, false );
+    </script>
+    <style>
+    </style>
+  </head>
+  <body>
+    <div id="timeline-container">
+    </div>
+    <div id="title-container">
+    </div>
+    <div id="description-container">
+    </div>
+    <audio id="audio-source" autobuffer="true" preload="auto" controls>
+      <source src="../assets/804619_The_Long_Way_Home_Prins_Thomas_Edit.webm"></source>
+    </audio>
+  </body>
+</html>

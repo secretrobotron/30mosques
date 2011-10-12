@@ -1,0 +1,3 @@
+[submodule "external/vimeo"]
+	path = external/vimeo
+	url = https://github.com/vimeo/player-api.git
