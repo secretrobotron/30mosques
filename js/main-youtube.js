@@ -1,5 +1,14 @@
 (function() {
 
+  var youtubeReadyCallbacks = [];
+  window.onYouTubePlayerAPIReady = function() {
+    if ( youtubeReadyCallbacks.length ) {
+      for ( var i=0; i<youtubeReadyCallbacks.length; ++i ) {
+        youtubeReadyCallbacks[ i ]();
+      } //for
+    } //if
+  };
+
   var requestAnimFrame = (function(){
     return  window.requestAnimationFrame       || 
             window.webkitRequestAnimationFrame || 
@@ -28,13 +37,11 @@
     }
   }; //addClass
 
-  var vimeoUrl = 'http://player.vimeo.com/video/',
-      metaDataUrl = 'http://vimeo.com/api/v2/video/';
+  var metaDataUrl = 'http://gdata.youtube.com/feeds/api/videos/';
 
   var Segment = function( options ) {
-    var contentContainer = document.createElement( "div" ),
-        videoGuid = options.video,
-        froogaloop,
+    var contentDiv = document.createElement( "div" ),
+        videoId = options.video,
         uuid = Segment.uuid++,
         videoPlayerId = "segment-video-" + uuid,
         metaData,
@@ -42,40 +49,55 @@
         ready = false,
         backgroundVolume = options.backgroundVolume,
         listeners = {},
+        videoPlayer,
         that = this;
 
-    addClass( contentContainer, "video-container" );
+    var playerVars = {};
+    if ( options.start ) {
+      playerVars.start = options.start;
+    }
+    if ( options.end ) {
+      playerVars.end = options.end;
+    }
 
-    var videoOptions = [
-      "title=1",
-      "api=1",
-      "player_id=" + videoPlayerId
-    ];
+    contentDiv.id = "video-container-" + uuid;
+
+    addClass( contentDiv, "video-container" );
 
     this.prepare = function( options ) {
       options = options || {};
 
-      var iframe = document.createElement( "iframe" );
-      iframe.id = videoPlayerId;
-      iframe.src = vimeoUrl + videoGuid + "?" + videoOptions.join("&");
-      froogaloop = $f( iframe );
-      iframe.setAttribute( "frameborder", "0" );
-      contentContainer.appendChild( iframe );
+      function init() {
+        videoPlayer = new YT.Player( contentDiv.id, {
+          height: '390',
+          width: '640',
+          videoId: videoId,
+          playerVars: playerVars,
+          events: {
+            'onReady': segmentLoaded,
+            //'onStateChange': onPlayerStateChange
+          }
+        });
 
-      function segmentLoaded() {
-        removeListener( "ready", segmentLoaded );
-        ready = true;
-        if ( options.ready) {
-          options.ready();
+        function segmentLoaded() {
+          ready = true;
+          if ( options.ready) {
+            options.ready();
+          }
         }
-      }
+      } //init
 
-      addListener( "ready", segmentLoaded );
+      if ( !window.YT.Player ) {
+        youtubeReadyCallbacks.push( init );
+      }
+      else {
+        init();
+      } //if
     }; //prepare
 
     function getMetaData() {
       var callbackName = "ThreeMosquesVideoCallback" + uuid,
-          metaUrl = metaDataUrl + videoGuid + ".json?callback=" + callbackName;
+          metaUrl = metaDataUrl + videoId + "?v=2&alt=json-in-script&callback=" + callbackName;
 
       var head = document.getElementsByTagName('head').item(0),
           script = document.createElement('script');
@@ -84,12 +106,19 @@
       script.setAttribute('src', metaUrl );
 
       window[ callbackName ] = function( data ) {
-        metaData = data[ 0 ];
+        var mediaData = data.entry;
+        metaData = {
+          description: mediaData.media$group.media$description.$t,
+          duration: mediaData.media$group.yt$duration.seconds,
+          title: mediaData.title.$t,
+          user: mediaData.author[ 0 ].name,
+          thumbnailUrl: mediaData.media$group.media$thumbnail[ 0 ].url
+        };
         delete window[ callbackName ];
         head.removeChild( script );
-        if ( metaData.thumbnail_medium ) {
+        if ( metaData.thumbnailUrl ) {
           thumbnail = new Image();
-          thumbnail.src = metaData.thumbnail_medium;
+          thumbnail.src = metaData.thumbnailUrl;
         } //if
         if ( options.metaDataReady ) {
          options.metaDataReady( metaData );
@@ -99,15 +128,13 @@
       head.appendChild( script );
     } //getMetaData
 
-    Object.defineProperty( this, "contentElement", { get: function() { return contentContainer; } } );
+    Object.defineProperty( this, "contentElement", { get: function() { return contentDiv; } } );
     Object.defineProperty( this, "description", { get: function() { return metaData.description; } } );
     Object.defineProperty( this, "title", { get: function() { return metaData.title; } } );
     Object.defineProperty( this, "duration", { get: function() { return metaData.duration; } } );
     Object.defineProperty( this, "ready", { get: function() { return ready; } } );
     Object.defineProperty( this, "user", { get: function() { return metaData.user; } } );
     Object.defineProperty( this, "metaData", { get: function() { return metaData; } } );
-    Object.defineProperty( this, "width", { get: function() { return metaData.width; } } );
-    Object.defineProperty( this, "height", { get: function() { return metaData.height; } } );
     Object.defineProperty( this, "backgroundVolume", { get: function() { return backgroundVolume; } } );
 
     var addListener = this.addListener = function( name, listener ) { 
@@ -139,34 +166,73 @@
     this.api = function( name, options ) { froogaloop.api( name, options ); };
 
     this.hide = function() {
-      removeClass( contentContainer, "video-container-on" );
-      addClass( contentContainer, "video-container-off" );
+      removeClass( contentDiv, "video-container-on" );
+      addClass( contentDiv, "video-container-off" );
     }; //hide
 
     this.show = function() {
-      removeClass( contentContainer, "video-container-off" );
-      addClass( contentContainer, "video-container-on" );
+      removeClass( contentDiv, "video-container-off" );
+      addClass( contentDiv, "video-container-on" );
     }; //show
 
     this.play = function( finishedCallback ) {
-      froogaloop.api( "play" );
+      videoPlayer.playVideo();
       function check() {
-        froogaloop.api( "getCurrentTime", function( time ) {
-          if ( time < metaData.duration ) {
-            setTimeout( check, 500 );
-          }
-          else {
-            finishedCallback();
-          }
-        });
+        var time = videoPlayer.getCurrentTime();
+        if ( options.end && time < options.end && time < metaData.duration ) {
+          setTimeout( check, 500 );
+        }
+        else {
+          finishedCallback();
+        }
       }
       check();
     }; //play
+
+    this.stop = function() {
+      videoPlayer.stopVideo();
+    }; //stop
 
     getMetaData();
 
   }; //Segment
   Segment.uuid = 0;
+
+  var Transition = function( options ) {
+    var contentDiv = document.createElement( "div" ),
+        finishedCallback,
+        backgroundVolume = options.backgroundVolume || 1,
+        that = this;
+
+    addClass( contentDiv, "transition-container" );
+
+    Object.defineProperty( this, "contentElement", { get: function() { return contentDiv; } } );
+    Object.defineProperty( this, "backgroundVolume", { get: function() { return backgroundVolume; } } );
+
+    this.prepare = function( options ) {
+      options.ready();
+    }; //prepare
+
+    this.hide = function() {
+      removeClass( contentDiv, "transition-container-on" );
+      addClass( contentDiv, "transition-container-off" );
+    }; //hide
+
+    this.show = function() {
+      removeClass( contentDiv, "transition-container-off" );
+      addClass( contentDiv, "transition-container-on" );
+    }; //show
+
+    this.play = function( finished ) {
+      options.run( that );
+      finishedCallback = finished;
+    }; //play
+
+    this.end = function() {
+      finishedCallback();
+    }; //end
+
+  }; //Transition
 
   var AudioTweener = function( audio ) {
 
@@ -204,6 +270,12 @@
         audioTweener = new AudioTweener( audio ),
         that = this;
 
+    this.addTransition = function( transition ) {
+      targetContainer.appendChild( transition.contentElement );
+      transition.hide();
+      segments.push( transition );
+    }; //addTransition
+
     this.addSegment = function( segment ) {
       targetContainer.appendChild( segment.contentElement );
       segment.hide();
@@ -238,6 +310,9 @@
             playSegment( nextSegment, playNextSegment ) 
           });
           currentSegment = nextSegment;
+        }
+        else {
+          currentSegment.stop();
         } //if
       } //playNextSegment
 
@@ -280,6 +355,7 @@
   window.ThirtyMosques = {
     Segment: Segment,
     Timeline: Timeline, 
+    Transition: Transition,
     Player: Player 
   };
 

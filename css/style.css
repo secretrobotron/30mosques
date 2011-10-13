@@ -27,3 +27,18 @@ html, body {
 .video-container-on {
   display: block;
 }
+
+.transition-container {
+  border: 1px solid #000;
+  width: 500px; 
+  height: 400px;
+  background: rgba( 0, 0, 0, 0.5 );
+}
+
+.transition-container-off {
+  display: none;
+}
+
+.transition-container-on {
+  display: block;
+}
