@@ -427,7 +427,6 @@
         target = 1;
 
     function doTween( to ) {
-      document.getElementById("time").innerHTML = audio.volume;
       if ( Math.abs( audio.volume - target ) > 0.01 ) {
         audio.volume = audio.volume - ( audio.volume - target ) * .01;
         requestAnimFrame( doTween );
@@ -501,7 +500,7 @@
         titleContainer.innerHTML = currentSegment.title;
         currentSegment.show();
         currentSegment.play();
-        audioTweener.tween( currentSegment.backgroundVolume );
+        audioTweener.tween( currentSegment.backgroundVolume*.75 );
         currentSegment.removeListener( "ready", ready );
         setTimeout( function() {
           var nextSegment = getNextSegment();

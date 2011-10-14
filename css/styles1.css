@@ -1,0 +1,345 @@
+@charset "UTF-8";
+body {
+	display: block;
+	width: 100%;
+	background-color:#E9E9E9;
+	font-family:"NobileRegular";
+	margin:0px;
+}
+
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+}
+
+
+h1{
+	font-family:Conduit;
+	
+	color: #000;
+	font-size: 90px;
+	line-height: 80%;
+
+}
+
+h2{
+	font-family:"NobileItalic";
+	
+	color: #000;
+	font-size: 20px;
+	font-weight:100; 
+	line-height: 120%;
+
+}
+
+h3{
+	font-family:"NobileBold";
+	color: #000;
+	font-size: 16px;
+	
+	 font-weight:bold; 
+
+}
+
+h4{
+	font-family:"NobileItalic";
+	color: #000;
+	font-size: 13px;
+	font-style:italic; 
+	font-weight:lighter;
+
+}
+
+
+
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color: #42413C;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #6E6C64;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+
+/* ~~ This fixed width container surrounds all other divs ~~ */
+.container {
+	display: box ; 
+	width: 1600px;
+	
+}
+
+/* ~~ The header is not given a width. It will extend the full width of your layout. It contains an image placeholder that should be replaced with your own linked logo. ~~ */
+.header {
+	
+	display:box;
+	padding:20px 60px 0px 60px;
+	background: #FFFFFF;
+	background-image:url('../images/yellow_bar.jpg');
+	background-repeat:repeat-x;
+	/*background-attachment:fixed; */
+	background-position:left bottom; 
+	
+	width:100%;
+}
+
+.headerbox{
+	display:box;
+	width:1000px;
+	height: 180px;
+}
+
+.headertext{
+	font-family:Conduit;
+	
+	color: #000;
+	font-size: 90px;
+	line-height: 80%;	
+	width:500px;
+	float:left;
+	box-align:end;
+	 
+}
+
+.headerparticipate{
+	
+	width:270px;
+	height:60px;
+	color:#fff;
+	
+	float:right;
+	display:box;
+	
+	background:#636363;
+	box-align:end;
+	padding:5px;
+	
+	box-shadow: 10px 10px #D1D1D1;
+	
+	font-family:Conduit;
+	text-align:center;
+	vertical-align:middle;
+
+	font-size: 36px;
+	font-style:italic; 
+	font-weight:bolder;
+	
+}
+
+
+
+.mainbody{
+	
+	box-align:center;
+	display:box;
+	height:490px;
+	pading:100px;
+	width:1200px;
+	background-color:#E9E9E9;
+	
+	
+}
+
+.mainbody-text{
+	font-family:"NobileRegular";
+	color:#000;
+	font-size: 32px;
+	width:1200px;
+	padding:20px 60px 20px 60px;
+	
+}
+
+
+.sidebar1 {
+	float: left;
+	vertical-align:top;
+	width: 200px;
+	
+	padding-left:60px;
+}
+.content {
+
+	padding: 10px;
+	width: 650px;
+  height: 400px;
+	float: left;
+  overflow: hidden;
+  position: relative;
+}
+.sidebar2 {
+	float: left;
+	width: 250px;
+	
+	padding: 10px;
+}
+
+
+
+/* ~~ The footer styles ~~ */
+.footer {
+	margin:60px;
+	
+}
+
+
+
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+ul.timeline {
+	list-style: none; /* this removes the list marker */
+	
+	
+}
+ul.timeline li {
+	
+	
+	
+}
+strong{
+ 	
+	
+	font-family:"NobileBold";
+	font-weight:normal;
+	text-transform:uppercase;
+	color:#000;
+	font-size: 32px;
+	
+	
+}
+
+
+ul.timeline p {
+	
+	display:box;
+	width:10px;
+	height:60px;
+	float:left;
+	background:#7A7A7A;
+	margin:3px;
+	
+}
+
+ul.timeline a, ul.timeline a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	
+	display:box;
+	width:98px;
+	height:60px;
+	float:left;
+	background:#7A7A7A;
+	margin:3px;
+	
+	
+}
+ul.timeline a:hover, ul.timeline a:active, ul.timeline a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+	
+	
+	outline: 5px solid #FFFF4D;
+	
+}
+
+
+
+
+
+
+/* ~~ This grouped selector gives the lists in the .content area space ~~ */
+.content ul, .content ol { 
+	
+}
+
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+ul.nav {
+	list-style: none; /* this removes the list marker */
+	
+	margin-bottom: 15px; /* this creates the space between the navigation on the content below */
+}
+ul.nav li {
+	
+}
+ul.nav a, ul.nav a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	padding: 5px 5px 5px 15px;
+	display: block; /* this gives the anchor block properties so it fills out the whole LI that contains it so that the entire area reacts to a mouse click. */
+	width: 160px;  /*this width makes the entire button clickable for IE6. If you don't need to support IE6, it can be removed. Calculate the proper width by subtracting the padding on this link from the width of your sidebar container. */
+	text-decoration: none;
+	
+}
+ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+	background: #F7F7F7;
+	color: #000;
+}
+
+
+
+
+/* ~~ Miscellaneous float/clear classes ~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty div as the final element following the last floated div (within the .container) if the .footer is removed or taken out of the .container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+.video-container {
+  position: absolute;
+  width: 640px; 
+  height: 400px;
+}
+
+.video-container iframe {
+  border: none;
+  width: 640px;
+  height: 400px;
+}
+
+.video-container-off {
+  display: none;
+  z-index: 1;
+}
+
+.video-container-on {
+  display: block;
+  z-index: 10;
+}
+
+.video-container-loading {
+  visibility: hidden;
+  display: block;
+  z-index: 1;
+}
+
+.transition-container {
+  width: 640px; 
+  height: 400px;
+  position: absolute;
+}
+
+.transition-container-off {
+  display: none;
+  z-index: 1;
+}
+
+.transition-container-on {
+  display: block;
+  z-index: 10;
+}
+
+.transition-container-loading {
+  display: block;
+  visibility: hidden;
+  z-index: 1;
+}
