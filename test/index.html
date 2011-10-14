@@ -2,7 +2,10 @@
 <html>
   <head>
     <link rel="stylesheet" href="../css/style.css" />
-    <script type="text/javascript" src="../external/vimeo/javascript/froogaloop.js"></script>
+    <script type="text/javascript" src="http://www.youtube.com/player_api"></script>
+    <script type="text/javascript" src="../external/popcorn/popcorn.js"></script>
+    <script type="text/javascript" src="../external/popcorn/popcorn.code.js"></script>
+    <script type="text/javascript" src="../external/popcorn/popcorn.image.js"></script>
     <script type="text/javascript" src="../js/main.js"></script>
     <script>
       document.addEventListener( "DOMContentLoaded", function( e ) {
@@ -10,16 +13,288 @@
           target: "timeline-container",
           title: "title-container",
           description: "description-container",
-          audio: "audio-source"
+          audio: "background-audio",
+          voiceover: "voiceover-audio"
         });
 
-        timeline.addSegment( new ThirtyMosques.Segment({
-          video: "12622016",
-          backgroundVolume: 0.02
+        timeline.addTransition( new ThirtyMosques.Transition({
+          backgroundVolume: 0.5,
+          title: "Waiting",
+          voiceover: {
+            start: 0.5,
+            end: 4.5
+          },
+          prepare: function( transition ) {
+            transition.addPopcornImage("http://farm1.static.flickr.com/29/48983653_362b906b48_b.jpg");
+            transition.addPopcornImage("http://farm4.static.flickr.com/3610/3387203709_09e9bd7014_b.jpg");
+            transition.addPopcornImage("http://farm3.static.flickr.com/2284/1904078564_7da7040a85.jpg");
+            transition.addPopcornImage("http://farm3.static.flickr.com/2400/2050548507_2a5bf2b56d_b.jpg");
+          },
+          run: function( transition ) {
+            transition.autoEnd();
+          },
         }));
+
         timeline.addSegment( new ThirtyMosques.Segment({
-          video: "30347612",
-          backgroundVolume: 0.1
+          title: "Waiting",
+          videos: [ 
+            {
+              url: "aHL-bRcGzIE",
+              backgroundVolume: 0.5,
+              start: 52,
+              end: 71,
+              volume: 1,
+              location: "USA"
+            },
+            {
+              url: "diQb9actKMA",
+              backgroundVolume: 0.5,
+              start: 7,
+              end: 14,
+              volume: 1,
+              location: "England"
+            },
+            {
+              url: "G6IFDV2PqbU",
+              backgroundVolume: 1,
+              start: 7,
+              end: 16,
+              volume: 0,
+              location: "Egypt"
+            }
+         ] 
+        }));
+
+        timeline.addTransition( new ThirtyMosques.Transition({
+          backgroundVolume: 0.5,
+          title: "Tired",
+          voiceover: {
+            start: 5.5,
+            end: 8.0
+          },
+          prepare: function( transition ) {
+            transition.addPopcornImage("http://farm7.static.flickr.com/6198/6042619793_c9d7edaa1f_b.jpg");
+            transition.addPopcornImage("http://farm6.static.flickr.com/5087/5356680380_5f76935fce_b.jpg");
+            transition.addPopcornImage("http://farm5.static.flickr.com/4135/4887073155_e81459c07b_b.jpg");
+            transition.addPopcornImage("http://farm3.static.flickr.com/2382/2054673471_6c5d5345ca_o.jpg");
+          },
+          run: function( transition ) {
+            transition.autoEnd();
+          },
+        }));
+
+        timeline.addSegment( new ThirtyMosques.Segment({
+          title: "Tired",
+          videos: [ 
+            {
+              url: "3LHeZI1zZ28",
+              backgroundVolume: 0.5,
+              start: 7,
+              end: 13,
+              volume: 1,
+              location: "USA"
+            },
+            {
+              url: "ndoqRTMnZ0o",
+              backgroundVolume: 1,
+              start: 17,
+              end: 25,
+              volume: 0,
+              location: "Saudi Arabia"
+            },
+            {
+              url: "gDwPU0fJK8Y",
+              backgroundVolume: 1,
+              start: 16,
+              end: 26,
+              volume: 0,
+              location: "Algeria"
+            }
+          ]
+        }));
+
+        timeline.addTransition( new ThirtyMosques.Transition({
+          backgroundVolume: 0.5,
+          title: "Preparation",
+          voiceover: {
+            start: 9.1,
+            end: 12.0
+          },
+          prepare: function( transition ) {
+            transition.addPopcornImage("http://farm7.static.flickr.com/6068/6092857058_dda72e33a2_b.jpg");
+            transition.addPopcornImage("http://farm4.static.flickr.com/3514/3872920289_38c4514b5a_z.jpg");
+            transition.addPopcornImage("http://farm5.static.flickr.com/4101/4915456379_ae70e1ea09_b.jpg");
+          },
+          run: function( transition ) {
+            transition.autoEnd();
+          },
+        }));
+
+        timeline.addSegment( new ThirtyMosques.Segment({
+          title: "Preparation",
+          videos: [ 
+            {
+              url: "uhLOIABeHUI",
+              backgroundVolume: 0.5,
+              start: 23,
+              end: 37,
+              volume: 0,
+              location: "Maldives"
+            },
+            {
+              url: "vwtelJNe7ls",
+              backgroundVolume: 1,
+              start: 74,
+              end: 83,
+              volume: 0,
+              location: "Pakistan"
+            },
+            {
+              url: "tiYCa12UO04",
+              backgroundVolume: 0.5,
+              start: 49,
+              end: 60,
+              volume: 1,
+              location: "USA"
+            }
+          ]
+        }));
+
+        timeline.addTransition( new ThirtyMosques.Transition({
+          backgroundVolume: 0.5,
+          title: "Gathering",
+          voiceover: {
+            start: 14.5,
+            end: 18.0
+          },
+          prepare: function( transition ) {
+            transition.addPopcornImage("http://farm2.static.flickr.com/1354/5128600374_a35b5fe0c0_b.jpg");
+            transition.addPopcornImage("http://farm3.static.flickr.com/2546/3939746675_e4b436ab04_b.jpg");
+          },
+          run: function( transition ) {
+            transition.autoEnd();
+          },
+        }));
+
+        timeline.addSegment( new ThirtyMosques.Segment({
+          title: "Gathering",
+          videos: [ 
+            {
+              url: "EWkH83RcTBY",
+              backgroundVolume: 1,
+              start: 15,
+              end: 25,
+              volume: 0,
+              location: "Malaysia"
+            },
+            {
+              url: "Y7hoWFaDPWk",
+              backgroundVolume: 0.5,
+              start: 192,
+              end: 202,
+              volume: 1,
+              location: "Pakistan"
+            }
+          ]
+        }));
+
+        timeline.addTransition( new ThirtyMosques.Transition({
+          backgroundVolume: 0.5,
+          title: "Family",
+          voiceover: {
+            start: 19.2,
+            end: 23.2
+          },
+          prepare: function( transition ) {
+            transition.addPopcornImage("http://farm3.static.flickr.com/2204/1566818461_8152c62dcb_b.jpg");
+            transition.addPopcornImage(" http://farm7.static.flickr.com/6189/6099398659_c47f874978_z.jpg");
+          },
+          run: function( transition ) {
+            transition.autoEnd();
+          },
+        }));
+
+        timeline.addSegment( new ThirtyMosques.Segment({
+          title: "Family",
+          videos: [ 
+            {
+              url: "ZKlQ5Vz-Kzk",
+              backgroundVolume: 0.5,
+              start: 7,
+              end: 15,
+              volume: 1,
+              location: "Netherlands"
+            },
+            {
+              url: "aZDZ1o-Npmg",
+              backgroundVolume: 0.5,
+              start: 31,
+              end: 42,
+              volume: 1,
+              location: "Tunisia"
+            }
+          ]
+        }));
+
+        timeline.addTransition( new ThirtyMosques.Transition({
+          backgroundVolume: 0.5,
+          title: "Joy",
+          voiceover: {
+            start: 25.1,
+            end: 31.2
+          },
+          prepare: function( transition ) {
+            transition.addPopcornImage("http://farm3.static.flickr.com/2804/4135774043_509fdf9d5c_b.jpg");
+          },
+          run: function( transition ) {
+            transition.autoEnd();
+          },
+        }));
+
+        timeline.addSegment( new ThirtyMosques.Segment({
+          title: "Joy",
+          videos: [ 
+            {
+              url: "c0a8_QZS5Hw",
+              backgroundVolume: 1,
+              start: 2,
+              end: 8,
+              volume: 0,
+              location: "Senegal"
+            },
+            {
+              url: "lzjAuP2MVfk",
+              backgroundVolume: 1,
+              start: 34,
+              end: 45,
+              volume: 0,
+              location: "India"
+            },
+            {
+              url: "ndoqRTMnZ0o",
+              backgroundVolume: 0.5,
+              start: 39,
+              end: 53,
+              volume: 1,
+              location: "USA"
+            }
+          ]
+        }));
+
+        timeline.addTransition( new ThirtyMosques.Transition({
+          backgroundVolume: 0.5,
+          title: "Ending",
+          voiceover: {
+            start: 32.2,
+            end: 39.0
+          },
+          prepare: function( transition ) {
+            transition.addPopcornImage("http://farm4.static.flickr.com/3164/2780260307_3d9a0656f3_o.jpg");
+            transition.addPopcornImage("http://farm3.static.flickr.com/2382/2054673471_6c5d5345ca_o.jpg");
+          },
+          run: function( transition ) {
+            transition.autoEnd();
+          },
         }));
 
         timeline.play();
@@ -36,8 +311,11 @@
     </div>
     <div id="description-container">
     </div>
-    <audio id="audio-source" autobuffer="true" preload="auto" controls>
-      <source src="../assets/804619_The_Long_Way_Home_Prins_Thomas_Edit.webm"></source>
+    <audio id="background-audio" autobuffer="true" preload="auto" controls>
+      <source src="../assets/Mogwai - Waltz For Aidan.webm"></source>
+    </audio>
+    <audio id="voiceover-audio" autobuffer="true" preload="auto" controls>
+      <source src="../assets/bass_voiceover2.oga"></source>
     </audio>
   </body>
 </html>

@@ -5,40 +5,60 @@ html, body {
   padding: 0;
 }
 
-#main-container {
+#timeline-container {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 640px;
+  height: 400px;
 }
 
 .video-container {
-  border: 1px solid #000;
-  width: 500px; 
+  position: absolute;
+  width: 640px; 
   height: 400px;
 }
 
 .video-container iframe {
   border: none;
-  width: 500px;
+  width: 640px;
   height: 400px;
 }
 
 .video-container-off {
   display: none;
+  z-index: 1;
 }
 
 .video-container-on {
   display: block;
+  z-index: 10;
+}
+
+.video-container-loading {
+  visibility: hidden;
+  display: block;
+  z-index: 1;
 }
 
 .transition-container {
-  border: 1px solid #000;
-  width: 500px; 
+  width: 640px; 
   height: 400px;
-  background: rgba( 0, 0, 0, 0.5 );
+  position: absolute;
 }
 
 .transition-container-off {
   display: none;
+  z-index: 1;
 }
 
 .transition-container-on {
   display: block;
+  z-index: 10;
+}
+
+.transition-container-loading {
+  display: block;
+  visibility: hidden;
+  z-index: 1;
 }
